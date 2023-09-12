@@ -8,14 +8,27 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var backgroundColor = Color.white
+    @State private var showingChangeBackground = false
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
             Text("Hello, world!")
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(backgroundColor)
+                .ignoresSafeArea()
+                .onTapGesture {
+                    showingChangeBackground = true
+                }
         }
-        .padding()
+        .confirmationDialog("Change Background", isPresented: $showingChangeBackground) {
+            Button("Red") { backgroundColor = .red }
+            Button("Green") { backgroundColor = .green }
+            Button("Blue") { backgroundColor = .blue }
+            Button("Cancel", role: .cancel) { }
+        } message: {
+            Text("Change color of background")
+        }
+
     }
 }
 
