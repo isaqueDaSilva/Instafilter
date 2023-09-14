@@ -8,28 +8,64 @@
 import SwiftUI
 
 struct HomeView: View {
+    @StateObject var viewModel = HomeViewModel()
     var body: some View {
         NavigationView {
             ZStack {
                 Color("MidnightBlue").ignoresSafeArea()
-                
                 VStack {
-                    Button {
-                        
-                    } label: {
-                        VStack {
-                            Image(systemName: "square.and.arrow.down")
-                                .font(.system(size: 25))
-                                .padding(5)
-                            Text("Import your photo")
+                    ZStack {
+                        if viewModel.image == nil {
+                            Rectangle()
+                                .fill(.secondary)
+                                .cornerRadius(10)
+                                .frame(height: 400)
+                            Button {
+                                
+                            } label: {
+                                VStack {
+                                    Image(systemName: "square.and.arrow.down")
+                                        .font(.system(size: 25))
+                                        .padding(5)
+                                    Text("Import your photo")
+                                }
+                                .foregroundColor(.white)
+                            }
+                        } else {
+                            viewModel.image?
+                                .resizable()
+                                .scaledToFit()
                         }
-                        .foregroundColor(.white)
                     }
-
+                    if viewModel.showingfilterIntensity {
+                        FilterIntensityView(range: $viewModel.filterIntensity)
+                            .padding(.top, 30)
+                    }
                 }
+                .padding([.horizontal, .bottom])
             }
             .navigationTitle("InstaFilter")
             .preferredColorScheme(.dark)
+            .toolbar {
+                if viewModel.image == nil {
+                    ToolbarItem {
+                        Button("Save") {
+                            
+                        }
+                    }
+                    
+                    ToolbarItem(placement: .bottomBar) {
+                        Button {
+                            withAnimation {
+                                viewModel.showingfilterIntensity.toggle()
+                            }
+                        } label: {
+                            Image(systemName: "wand.and.stars.inverse")
+                        }
+                        
+                    }
+                }
+            }
         }
     }
 }
