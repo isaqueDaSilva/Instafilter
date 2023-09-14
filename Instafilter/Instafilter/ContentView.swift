@@ -11,24 +11,12 @@ struct ContentView: View {
     @State private var backgroundColor = Color.white
     @State private var showingChangeBackground = false
     var body: some View {
-        VStack {
-            Text("Hello, world!")
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(backgroundColor)
-                .ignoresSafeArea()
-                .onTapGesture {
-                    showingChangeBackground = true
-                }
+        NavigationView {
+            ZStack {
+                Color("MidnightBlue").ignoresSafeArea()
+            }
+            .navigationTitle("InstaFilter")
         }
-        .confirmationDialog("Change Background", isPresented: $showingChangeBackground) {
-            Button("Red") { backgroundColor = .red }
-            Button("Green") { backgroundColor = .green }
-            Button("Blue") { backgroundColor = .blue }
-            Button("Cancel", role: .cancel) { }
-        } message: {
-            Text("Change color of background")
-        }
-
     }
 }
 
