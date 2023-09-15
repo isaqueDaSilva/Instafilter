@@ -21,7 +21,7 @@ struct HomeView: View {
                                 .cornerRadius(10)
                                 .frame(height: 400)
                             Button {
-                                
+                                viewModel.showingPhotoLibrary = true
                             } label: {
                                 VStack {
                                     Image(systemName: "square.and.arrow.down")
@@ -39,6 +39,7 @@ struct HomeView: View {
                     }
                     if viewModel.showingfilterIntensity {
                         FilterIntensityView(range: $viewModel.filterIntensity)
+                            .onChange(of: viewModel.filterIntensity) { _ in viewModel.applyFilter() }
                             .padding(.top, 30)
                     }
                 }
@@ -46,8 +47,9 @@ struct HomeView: View {
             }
             .navigationTitle("InstaFilter")
             .preferredColorScheme(.dark)
+            .onChange(of: viewModel.inputImage) { _ in viewModel.loadImage() }
             .toolbar {
-                if viewModel.image == nil {
+                if viewModel.image != nil {
                     ToolbarItem {
                         Button("Save") {
                             
@@ -62,9 +64,11 @@ struct HomeView: View {
                         } label: {
                             Image(systemName: "wand.and.stars.inverse")
                         }
-                        
                     }
                 }
+            }
+            .sheet(isPresented: $viewModel.showingPhotoLibrary) {
+                ImagePicker(image: $viewModel.inputImage)
             }
         }
     }
