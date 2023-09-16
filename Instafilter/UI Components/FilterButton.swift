@@ -5,20 +5,26 @@
 //  Created by Isaque da Silva on 15/09/23.
 //
 
+import CoreImage
+import CoreImage.CIFilterBuiltins
 import SwiftUI
 
 struct FilterButton: View {
+    let manager = FilterManager()
+    
     @Binding var switchMode: Bool
-    var filter: CIFilter
-    var image: Image
+    let name: String
+    let image: String
+    let filterType: CIFilter
     
     var body: some View {
         Button {
             withAnimation {
                 switchMode.toggle()
             }
+            manager.setFilter(filterType)
         } label: {
-            Image(systemName: "wand.and.stars.inverse")
+            Label(name, systemImage: image)
         }
     }
 }

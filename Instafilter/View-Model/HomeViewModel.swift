@@ -10,13 +10,20 @@ import SwiftUI
 
 extension HomeView {
     class HomeViewModel: ObservableObject {
-        let manager = FilterManager()
-        
+        @Published var manager = FilterManager()
         @Published var showingfilterIntensity: Bool = false
         @Published var showingPhotoLibrary = false
         
+        func filterIntensity() -> Double {
+            manager.filterIntensity
+        }
+        
         func image() -> Image? {
             manager.image
+        }
+        
+        func inputImage() -> UIImage? {
+            manager.inputImage
         }
         
         func loadImage() {

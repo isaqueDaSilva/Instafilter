@@ -15,7 +15,7 @@ struct HomeView: View {
                 Color("MidnightBlue").ignoresSafeArea()
                 VStack {
                     ZStack {
-                        if viewModel.image == nil {
+                        if viewModel.image() == nil {
                             Rectangle()
                                 .fill(.secondary)
                                 .cornerRadius(10)
@@ -32,14 +32,14 @@ struct HomeView: View {
                                 .foregroundColor(.white)
                             }
                         } else {
-                            viewModel.image?
+                            viewModel.image()?
                                 .resizable()
                                 .scaledToFit()
                         }
                     }
                     if viewModel.showingfilterIntensity {
-                        FilterIntensityView(value: $viewModel.filterIntensity)
-                            .onChange(of: viewModel.filterIntensity) { _ in
+                        FilterIntensityView(value: $viewModel.manager.filterIntensity)
+                            .onChange(of: viewModel.filterIntensity()) { _ in
                                 viewModel.applyFilter()
                             }
                             .padding(.top, 30)
@@ -49,9 +49,9 @@ struct HomeView: View {
             }
             .navigationTitle("InstaFilter")
             .preferredColorScheme(.dark)
-            .onChange(of: viewModel.inputImage) { _ in viewModel.loadImage() }
+            .onChange(of: viewModel.inputImage()) { _ in viewModel.loadImage() }
             .toolbar {
-                if viewModel.image != nil {
+                if viewModel.image() != nil {
                     ToolbarItem {
                         Button("Save") {
                             
@@ -59,12 +59,19 @@ struct HomeView: View {
                     }
                     
                     ToolbarItem(placement: .bottomBar) {
-                        
+                        FilterButton(
+                            switchMode: $viewModel.showingfilterIntensity,
+                            name: "Sepia Tone", image: "camera.filters",
+                            filterType: CIFilter.sepiaTone()
+                        )
+                        .onChange(of: viewModel.showingfilterIntensity) { newValue in
+                            viewModel.showingfilterIntensity = newValue
+                        }
                     }
                 }
             }
             .sheet(isPresented: $viewModel.showingPhotoLibrary) {
-                ImagePicker(image: $viewModel.inputImage)
+                ImagePicker(image: $viewModel.manager.inputImage)
             }
         }
     }

@@ -10,18 +10,35 @@ import CoreImage.CIFilterBuiltins
 import Foundation
 import SwiftUI
 
-class FilterManager {
+class FilterManager: ObservableObject {
     let context = CIContext()
     
-    func loadImage(_ inputImage: UIImage?, _ currentFilter: CIFilter) {
+    @Published var image: Image?
+    @Published var inputImage: UIImage?
+    @Published var filterIntensity: Double = 0
+    @Published var currentFilter: CIFilter = CIFilter.sepiaTone()
+    
+    func setFilter(_ filter: CIFilter) {
+        currentFilter = filter
+        loadImage()
+    }
+    
+    func changeFilter() {
+        
+    }
+    
+    func save() {
+        
+    }
+    
+    func loadImage() {
         guard let inputImage = inputImage else { return }
         let beginImage = CIImage(image: inputImage)
         currentFilter.setValue(beginImage, forKey: kCIInputImageKey)
+        applyFilter()
     }
     
-    func applyFilter(_ currentFilter: CIFilter, _ filterIntensity: Double, _ image: Image?) {
-        
-        var image = image
+    func applyFilter() {
         let inputKeys = currentFilter.inputKeys
         
         if inputKeys.contains(kCIInputIntensityKey) {
