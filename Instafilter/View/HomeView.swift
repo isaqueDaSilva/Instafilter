@@ -13,45 +13,49 @@ struct HomeView: View {
         NavigationView {
             ZStack {
                 Color("MidnightBlue").ignoresSafeArea()
+                
                 VStack {
-                    ZStack {
-                        if viewModel.image() == nil {
+                    if viewModel.image == nil {
+                        ZStack {
                             Rectangle()
                                 .fill(.secondary)
                                 .cornerRadius(10)
                                 .frame(height: 400)
                             Button {
-                                viewModel.showingPhotoLibrary = true
+                                viewModel.showingUserGalery = true
                             } label: {
                                 VStack {
                                     Image(systemName: "square.and.arrow.down")
-                                        .font(.system(size: 25))
-                                        .padding(5)
-                                    Text("Import your photo")
+                                        .font(.system(size: 30))
+                                    Text("Import your Image")
+                                        .padding(.top, 10)
                                 }
                                 .foregroundColor(.white)
                             }
-                        } else {
-                            viewModel.image()?
-                                .resizable()
-                                .scaledToFit()
+                            
                         }
+                    } else {
+                        viewModel.image?
+                            .resizable()
+                            .scaledToFit()
                     }
-                    if viewModel.showingfilterIntensity {
-                        FilterIntensityView(value: $viewModel.manager.filterIntensity)
-                            .onChange(of: viewModel.filterIntensity()) { _ in
-                                viewModel.applyFilter()
-                            }
-                            .padding(.top, 30)
+                    
+                    if viewModel.showingSliderIntensity {
+                        Slider(value: $viewModel.filterIntensity)
+                            .onChange(of: viewModel.filterIntensity) { _ in viewModel.applyFilter() }
+                            .padding(.top)
                     }
                 }
-                .padding([.horizontal, .bottom])
+                .padding()
             }
             .navigationTitle("InstaFilter")
             .preferredColorScheme(.dark)
-            .onChange(of: viewModel.inputImage()) { _ in viewModel.loadImage() }
+            .onChange(of: viewModel.inputImage) { _ in viewModel.loadImage() }
+            .sheet(isPresented: $viewModel.showingUserGalery) {
+                ImagePicker(image: $viewModel.inputImage)
+            }
             .toolbar {
-                if viewModel.image() != nil {
+                if viewModel.image != nil {
                     ToolbarItem {
                         Button("Save") {
                             
@@ -59,19 +63,27 @@ struct HomeView: View {
                     }
                     
                     ToolbarItem(placement: .bottomBar) {
-                        FilterButton(
-                            switchMode: $viewModel.showingfilterIntensity,
-                            name: "Sepia Tone", image: "camera.filters",
-                            filterType: CIFilter.sepiaTone()
-                        )
-                        .onChange(of: viewModel.showingfilterIntensity) { newValue in
-                            viewModel.showingfilterIntensity = newValue
+                        HStack {
+                            Button {
+                                withAnimation {
+                                    viewModel.showingSliderIntensity = true
+                                    viewModel.setFilter(CIFilter.sepiaTone())
+                                }
+                            } label: {
+                                Label("Sepia Tone", systemImage: "camera.filters")
+                            }
+                            
+                            Button {
+                                withAnimation {
+                                    viewModel.showingSliderIntensity = true
+                                    viewModel.setFilter(CIFilter.gaussianBlur())
+                                }
+                            } label: {
+                                Label("Gaussian Blur", systemImage: "f.cursive")
+                            }
                         }
                     }
                 }
-            }
-            .sheet(isPresented: $viewModel.showingPhotoLibrary) {
-                ImagePicker(image: $viewModel.manager.inputImage)
             }
         }
     }
