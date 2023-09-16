@@ -38,8 +38,10 @@ struct HomeView: View {
                         }
                     }
                     if viewModel.showingfilterIntensity {
-                        FilterIntensityView(range: $viewModel.filterIntensity)
-                            .onChange(of: viewModel.filterIntensity) { _ in viewModel.applyFilter() }
+                        FilterIntensityView(value: $viewModel.filterIntensity)
+                            .onChange(of: viewModel.filterIntensity) { _ in
+                                viewModel.applyFilter()
+                            }
                             .padding(.top, 30)
                     }
                 }
@@ -57,13 +59,7 @@ struct HomeView: View {
                     }
                     
                     ToolbarItem(placement: .bottomBar) {
-                        Button {
-                            withAnimation {
-                                viewModel.showingfilterIntensity.toggle()
-                            }
-                        } label: {
-                            Image(systemName: "wand.and.stars.inverse")
-                        }
+                        
                     }
                 }
             }

@@ -12,12 +12,13 @@ import SwiftUI
 
 extension HomeView {
     class HomeViewModel: ObservableObject {
+        let context = CIContext()
+        
         @Published var image: Image?
         @Published var inputImage: UIImage?
         @Published var filterIntensity: Double = 0.5
         @Published var showingfilterIntensity: Bool = false
         @Published var showingPhotoLibrary = false
-        @Published var context = CIContext()
         @Published var currentFilter = CIFilter.sepiaTone()
         
         func changeFilter() {
@@ -36,13 +37,25 @@ extension HomeView {
         }
         
         func applyFilter() {
-            currentFilter.intensity = Float(filterIntensity)
+            let inputKeys = currentFilter.inputKeys
+            
+            if inputKeys.contains(kCIInputIntensityKey) {
+                currentFilter.setValue(filterIntensity, forKey: kCIInputIntensityKey)
+            }
+            
+            if inputKeys.contains(kCIInputRadiusKey) {
+                currentFilter.setValue(filterIntensity, forKey: kCIInputRadiusKey)
+            }
+            
+            if inputKeys.contains(kCIInputScaleKey) {
+                currentFilter.setValue(filterIntensity, forKey: kCIInputScaleKey)
+            }
             
             guard let outputImage = currentFilter.outputImage else { return }
             
             if let cgImage = context.createCGImage(outputImage, from: outputImage.extent) {
                 let uiImage = UIImage(cgImage: cgImage)
-                self.image = Image(uiImage: uiImage)
+                image = Image(uiImage: uiImage)
             }
         }
     }

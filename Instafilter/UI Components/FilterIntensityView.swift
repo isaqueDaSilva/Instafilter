@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct FilterIntensityView: View {
-    @Binding var range: Double
+    @Binding var value: Double
     var body: some View {
         VStack {
-            Slider(value: $range, in: 0...100)
+            Slider(value: $value, in: 0...1)
         }
     }
 }
