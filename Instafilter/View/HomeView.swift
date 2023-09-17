@@ -59,8 +59,19 @@ struct HomeView: View {
             .toolbar {
                 if viewModel.image != nil {
                     ToolbarItem {
-                        Button("Save") {
-                            viewModel.save()
+                        HStack(spacing: 10) {
+                            Button {
+                                viewModel.showingUserGalery = true
+                            } label: {
+                                Label("Change current photo", systemImage: "photo")
+                            }
+                            .padding(.top, 4.5)
+                            
+                            Button {
+                                viewModel.save()
+                            } label: {
+                                Label("Save photo", systemImage: "square.and.arrow.up")
+                            }
                         }
                     }
                     
