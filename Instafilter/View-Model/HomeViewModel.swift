@@ -17,10 +17,14 @@ extension HomeView {
         @Published var showingUserGalery: Bool = false
         @Published var image: Image?
         @Published var inputImage: UIImage?
+        @Published var imageSaved: UIImage?
         @Published var currentFilter: CIFilter = CIFilter.sepiaTone()
         @Published var filterIntensity: Double = 0.5
         @Published var showingSliderIntensity: Bool = false
         @Published var showingConfirmationDialog = false
+        @Published var showingAlert = false
+        @Published var alertTitle = ""
+        @Published var alertMessage = ""
         
         func setFilter(_ filter: CIFilter) {
             DispatchQueue.main.async {
@@ -57,8 +61,29 @@ extension HomeView {
                 let uiImage = UIImage(cgImage: cgImage)
                 DispatchQueue.main.async {
                     self.image = Image(uiImage: uiImage)
+                    self.imageSaved = uiImage
                 }
             }
+        }
+        
+        func save() {
+            guard let imageSaved = imageSaved else { return }
+            
+            let imageSaver = ImageSaver()
+            
+            imageSaver.successHandler = {
+                self.alertTitle = "Saved"
+                self.alertMessage = "Your image has been saved successfully!"
+                self.showingAlert = true
+            }
+            
+            imageSaver.errorHandler = {
+                self.alertTitle = "Error"
+                self.alertMessage = "An error occurred while saving the image to the gallery.\($0.localizedDescription)\nPlease try again!"
+                self.showingAlert = true
+            }
+            
+            imageSaver.writeToPhotoAlbum(imageSaved)
         }
     }
 }

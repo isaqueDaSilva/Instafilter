@@ -40,7 +40,7 @@ struct HomeView: View {
                             .scaledToFit()
                     }
                     
-                    if viewModel.showingSliderIntensity {
+                    if viewModel.showingSliderIntensity && viewModel.image != nil {
                         Slider(value: $viewModel.filterIntensity)
                             .onChange(of: viewModel.filterIntensity) { _ in
                                 viewModel.applyFilter()
@@ -60,7 +60,7 @@ struct HomeView: View {
                 if viewModel.image != nil {
                     ToolbarItem {
                         Button("Save") {
-
+                            viewModel.save()
                         }
                     }
                     
@@ -101,6 +101,16 @@ struct HomeView: View {
                 Button("Vignette") { viewModel.setFilter(CIFilter.vignette()) }
                 Button("Cancel", role: .cancel) { }
             }
+            .alert(viewModel.alertTitle, isPresented: $viewModel.showingAlert) {
+                Button("OK") {
+                    withAnimation {
+                        viewModel.image = nil
+                    }
+                }
+            } message: {
+                Text(viewModel.alertMessage)
+            }
+
         }
     }
 }

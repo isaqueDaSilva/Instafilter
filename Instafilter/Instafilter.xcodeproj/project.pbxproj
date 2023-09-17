@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7E11B1A32AB2B05B0087843B /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E11B1A22AB2B05B0087843B /* HomeView.swift */; };
+		7E43CD6D2AB7A6E60084F703 /* ImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E43CD6C2AB7A6E60084F703 /* ImageSaver.swift */; };
 		7E543BEF2AAFD21C00182DE3 /* InstafilterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E543BEE2AAFD21C00182DE3 /* InstafilterApp.swift */; };
 		7E543BF32AAFD21E00182DE3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E543BF22AAFD21E00182DE3 /* Assets.xcassets */; };
 		7E543BF62AAFD21E00182DE3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E543BF52AAFD21E00182DE3 /* Preview Assets.xcassets */; };
@@ -19,6 +20,7 @@
 
 /* Begin PBXFileReference section */
 		7E11B1A22AB2B05B0087843B /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		7E43CD6C2AB7A6E60084F703 /* ImageSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSaver.swift; sourceTree = "<group>"; };
 		7E543BEB2AAFD21C00182DE3 /* Instafilter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Instafilter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E543BEE2AAFD21C00182DE3 /* InstafilterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstafilterApp.swift; sourceTree = "<group>"; };
 		7E543BF22AAFD21E00182DE3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -65,6 +67,14 @@
 			path = "UI Components";
 			sourceTree = "<group>";
 		};
+		7E43CD6B2AB7A6C90084F703 /* Image Saver */ = {
+			isa = PBXGroup;
+			children = (
+				7E43CD6C2AB7A6E60084F703 /* ImageSaver.swift */,
+			);
+			path = "Image Saver";
+			sourceTree = "<group>";
+		};
 		7E543BE22AAFD21C00182DE3 = {
 			isa = PBXGroup;
 			children = (
@@ -73,6 +83,7 @@
 				7E11B19E2AB2B0070087843B /* View-Model */,
 				7E11B1A12AB2B0350087843B /* UI Components */,
 				7EE7784E2AB3C7E1003A9B5F /* Extensions */,
+				7E43CD6B2AB7A6C90084F703 /* Image Saver */,
 				7E543BEC2AAFD21C00182DE3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -184,6 +195,7 @@
 				7E11B1A32AB2B05B0087843B /* HomeView.swift in Sources */,
 				7EE7784C2AB3C6E3003A9B5F /* ImagePicker.swift in Sources */,
 				7EE778502AB3C81A003A9B5F /* ImagePickerExtension.swift in Sources */,
+				7E43CD6D2AB7A6E60084F703 /* ImageSaver.swift in Sources */,
 				7E5955EB2AB3A1B50054BDBC /* HomeViewModel.swift in Sources */,
 				7E543BEF2AAFD21C00182DE3 /* InstafilterApp.swift in Sources */,
 				7ECE721C2AB535E600210D80 /* FilterButton.swift in Sources */,
