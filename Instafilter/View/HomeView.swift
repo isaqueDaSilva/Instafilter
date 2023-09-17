@@ -42,7 +42,9 @@ struct HomeView: View {
                     
                     if viewModel.showingSliderIntensity {
                         Slider(value: $viewModel.filterIntensity)
-                            .onChange(of: viewModel.filterIntensity) { _ in viewModel.applyFilter() }
+                            .onChange(of: viewModel.filterIntensity) { _ in
+                                viewModel.applyFilter()
+                            }
                             .padding(.top)
                     }
                 }
@@ -58,29 +60,26 @@ struct HomeView: View {
                 if viewModel.image != nil {
                     ToolbarItem {
                         Button("Save") {
-                            
+
                         }
                     }
                     
                     ToolbarItem(placement: .bottomBar) {
                         HStack {
-                            Button {
-                                withAnimation {
-                                    viewModel.showingSliderIntensity = true
-                                    viewModel.setFilter(CIFilter.sepiaTone())
-                                }
-                            } label: {
-                                Label("Sepia Tone", systemImage: "camera.filters")
-                            }
                             
-                            Button {
-                                withAnimation {
-                                    viewModel.showingSliderIntensity = true
-                                    viewModel.setFilter(CIFilter.gaussianBlur())
-                                }
-                            } label: {
-                                Label("Gaussian Blur", systemImage: "f.cursive")
-                            }
+                            FilterButton(
+                                showingSlider: $viewModel.showingSliderIntensity,
+                                currentFilter: { viewModel.setFilter(CIFilter.sepiaTone()) },
+                                filterType: "Sepia Tone",
+                                image: "camera.filters"
+                            )
+                            
+                            FilterButton (
+                                showingSlider: $viewModel.showingSliderIntensity,
+                                currentFilter: { viewModel.setFilter(CIFilter.gaussianBlur()) },
+                                filterType: "Gausian Blur",
+                                image: "f.cursive"
+                            )
                         }
                     }
                 }

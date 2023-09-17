@@ -22,8 +22,10 @@ extension HomeView {
         @Published var showingSliderIntensity: Bool = false
         
         func setFilter(_ filter: CIFilter) {
-            self.currentFilter = filter
-            loadImage()
+            DispatchQueue.main.async {
+                self.currentFilter = filter
+                self.loadImage()
+            }
         }
         
         func loadImage() {
@@ -52,7 +54,9 @@ extension HomeView {
             
             if let cgImage = context.createCGImage(outputImage, from: outputImage.extent) {
                 let uiImage = UIImage(cgImage: cgImage)
-                self.image = Image(uiImage: uiImage)
+                DispatchQueue.main.async {
+                    self.image = Image(uiImage: uiImage)
+                }
             }
         }
     }

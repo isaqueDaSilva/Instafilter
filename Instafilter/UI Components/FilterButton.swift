@@ -9,7 +9,22 @@ import CoreImage
 import CoreImage.CIFilterBuiltins
 import SwiftUI
 
-extension HomeView {
-
+struct FilterButton: View {
+    @Binding var showingSlider: Bool
+    var currentFilter: () -> Void
+    let filterType: String
+    let image: String
+    
+    var body: some View {
+        Button {
+            withAnimation {
+                if showingSlider == false {
+                    showingSlider.toggle()
+                }
+                currentFilter()
+            }
+        } label: {
+            Label(filterType, systemImage: image)
+        }
+    }
 }
-
