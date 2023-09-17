@@ -19,7 +19,7 @@ struct FilterButton: View {
         Button {
             withAnimation {
                 if showingSlider == false {
-                    showingSlider.toggle()
+                    showingSlider = true
                 }
                 currentFilter()
             }
