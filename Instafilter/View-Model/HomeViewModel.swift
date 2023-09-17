@@ -20,6 +20,7 @@ extension HomeView {
         @Published var currentFilter: CIFilter = CIFilter.sepiaTone()
         @Published var filterIntensity: Double = 0.5
         @Published var showingSliderIntensity: Bool = false
+        @Published var showingConfirmationDialog = false
         
         func setFilter(_ filter: CIFilter) {
             DispatchQueue.main.async {

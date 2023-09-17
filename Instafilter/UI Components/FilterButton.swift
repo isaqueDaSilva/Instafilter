@@ -11,9 +11,9 @@ import SwiftUI
 
 struct FilterButton: View {
     @Binding var showingSlider: Bool
-    var currentFilter: () -> Void
     let filterType: String
     let image: String
+    var currentFilter: () -> Void
     
     var body: some View {
         Button {

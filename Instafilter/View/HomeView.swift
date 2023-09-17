@@ -65,24 +65,41 @@ struct HomeView: View {
                     }
                     
                     ToolbarItem(placement: .bottomBar) {
-                        HStack {
+                        HStack(spacing: 20) {
                             
-                            FilterButton(
-                                showingSlider: $viewModel.showingSliderIntensity,
-                                currentFilter: { viewModel.setFilter(CIFilter.sepiaTone()) },
-                                filterType: "Sepia Tone",
-                                image: "camera.filters"
-                            )
+                            FilterButton(showingSlider: $viewModel.showingSliderIntensity, filterType: "Crystallize",image: "wand.and.stars.inverse") {
+                                viewModel.setFilter(CIFilter.crystallize())
+                            }
                             
-                            FilterButton (
-                                showingSlider: $viewModel.showingSliderIntensity,
-                                currentFilter: { viewModel.setFilter(CIFilter.gaussianBlur()) },
-                                filterType: "Gausian Blur",
-                                image: "f.cursive"
-                            )
+                            FilterButton (showingSlider: $viewModel.showingSliderIntensity, filterType: "Edges",image: "timeline.selection") {
+                                viewModel.setFilter(CIFilter.edges())
+                            }
+                            
+                            FilterButton (showingSlider: $viewModel.showingSliderIntensity, filterType: "Gausian Blur",image: "f.cursive") {
+                                viewModel.setFilter(CIFilter.gaussianBlur())
+                            }
+                            
+                            FilterButton (showingSlider: $viewModel.showingSliderIntensity, filterType: "Pixellate",image: "eyedropper") {
+                                viewModel.setFilter(CIFilter.pixellate())
+                            }
+                            
+                            FilterButton (showingSlider: $viewModel.showingSliderIntensity, filterType: "Sepia Tone",image: "camera.filters") {
+                                viewModel.setFilter(CIFilter.sepiaTone())
+                            }
+                            
+                            Button {
+                                viewModel.showingConfirmationDialog = true
+                            } label: {
+                                Label("More Filters", systemImage: "line.3.horizontal")
+                            }
                         }
                     }
                 }
+            }
+            .confirmationDialog("More Filters", isPresented: $viewModel.showingConfirmationDialog) {
+                Button("Unsharp Mask") { viewModel.setFilter(CIFilter.unsharpMask()) }
+                Button("Vignette") { viewModel.setFilter(CIFilter.vignette()) }
+                Button("Cancel", role: .cancel) { }
             }
         }
     }
