@@ -81,6 +81,9 @@ struct HomeView: View {
                                 FilterButton(showingSlider: $viewModel.showingSliderIntensity, filterType: filter.name, image: filter.icone ?? "", isLabelOn: true) {
                                     viewModel.setFilter(filter.filterType)
                                 }
+                                .onTapGesture {
+                                    
+                                }
                             }
                             
                             Menu {
