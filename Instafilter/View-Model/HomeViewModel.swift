@@ -12,6 +12,18 @@ import SwiftUI
 
 extension HomeView {
     class HomeViewModel: ObservableObject {
+        @Published var showingUserGalery: Bool = false
+        @Published var image: Image?
+        @Published var inputImage: UIImage?
+        @Published var imageSaved: UIImage?
+        @Published var currentFilter: CIFilter = CIFilter.sepiaTone()
+        @Published var filterIntensity: Double = 0.5
+        @Published var showingSliderIntensity: Bool = false
+        @Published var showingConfirmationDialog = false
+        @Published var showingAlert = false
+        @Published var alertTitle = ""
+        @Published var alertMessage = ""
+        
         let context = CIContext()
         
         let filterInButtonBar: [Filters] = [
@@ -27,18 +39,6 @@ extension HomeView {
             Filters(name: "Vignette", filterType: CIFilter.vignette(), icone: nil),
             Filters(name: "Distortion", filterType: CIFilter.twirlDistortion(), icone: nil)
         ]
-        
-        @Published var showingUserGalery: Bool = false
-        @Published var image: Image?
-        @Published var inputImage: UIImage?
-        @Published var imageSaved: UIImage?
-        @Published var currentFilter: CIFilter = CIFilter.sepiaTone()
-        @Published var filterIntensity: Double = 0.5
-        @Published var showingSliderIntensity: Bool = false
-        @Published var showingConfirmationDialog = false
-        @Published var showingAlert = false
-        @Published var alertTitle = ""
-        @Published var alertMessage = ""
 
         func setFilter(_ filter: CIFilter) {
             DispatchQueue.main.async {
