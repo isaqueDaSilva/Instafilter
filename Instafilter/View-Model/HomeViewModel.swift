@@ -37,9 +37,12 @@ extension HomeView {
         let filtersInMenu: [Filters] = [
             Filters(name: "Unsharp Mask", filterType: CIFilter.unsharpMask(), icone: nil),
             Filters(name: "Vignette", filterType: CIFilter.vignette(), icone: nil),
-            Filters(name: "Distortion", filterType: CIFilter.twirlDistortion(), icone: nil)
+            Filters(name: "Distortion", filterType: CIFilter.twirlDistortion(), icone: nil),
+            Filters(name: "Edge Work", filterType: CIFilter.edgeWork(), icone: nil),
+            Filters(name: "Bloom", filterType: CIFilter.bloom(), icone: nil),
+            Filters(name: "Motion Blur", filterType: CIFilter.motionBlur(), icone: nil)
         ]
-
+        
         func setFilter(_ filter: CIFilter) {
             DispatchQueue.main.async {
                 self.currentFilter = filter
