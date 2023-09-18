@@ -78,39 +78,44 @@ struct HomeView: View {
                     ToolbarItem(placement: .bottomBar) {
                         HStack(spacing: 20) {
                             
-                            FilterButton(showingSlider: $viewModel.showingSliderIntensity, filterType: "Crystallize",image: "wand.and.stars.inverse") {
+                            FilterButton(showingSlider: $viewModel.showingSliderIntensity, filterType: "Crystallize", image: "wand.and.stars.inverse", isLabelOn: true) {
                                 viewModel.setFilter(CIFilter.crystallize())
                             }
                             
-                            FilterButton (showingSlider: $viewModel.showingSliderIntensity, filterType: "Edges",image: "timeline.selection") {
+                            FilterButton (showingSlider: $viewModel.showingSliderIntensity, filterType: "Edges",image: "timeline.selection", isLabelOn: true) {
                                 viewModel.setFilter(CIFilter.edges())
                             }
                             
-                            FilterButton (showingSlider: $viewModel.showingSliderIntensity, filterType: "Gausian Blur",image: "f.cursive") {
+                            FilterButton (showingSlider: $viewModel.showingSliderIntensity, filterType: "Gausian Blur",image: "f.cursive", isLabelOn: true) {
                                 viewModel.setFilter(CIFilter.gaussianBlur())
                             }
                             
-                            FilterButton (showingSlider: $viewModel.showingSliderIntensity, filterType: "Pixellate",image: "eyedropper") {
+                            FilterButton (showingSlider: $viewModel.showingSliderIntensity, filterType: "Pixellate",image: "eyedropper", isLabelOn: true) {
                                 viewModel.setFilter(CIFilter.pixellate())
                             }
                             
-                            FilterButton (showingSlider: $viewModel.showingSliderIntensity, filterType: "Sepia Tone",image: "camera.filters") {
+                            FilterButton (showingSlider: $viewModel.showingSliderIntensity, filterType: "Sepia Tone",image: "camera.filters", isLabelOn: true) {
                                 viewModel.setFilter(CIFilter.sepiaTone())
                             }
                             
-                            Button {
-                                viewModel.showingConfirmationDialog = true
+                            Menu {
+                                FilterButton (showingSlider: $viewModel.showingSliderIntensity, filterType: "Unsharp Mask",image: nil, isLabelOn: false) {
+                                    viewModel.setFilter(CIFilter.unsharpMask())
+                                }
+                                
+                                FilterButton (showingSlider: $viewModel.showingSliderIntensity, filterType: "Vignette",image: nil, isLabelOn: false) {
+                                    viewModel.setFilter(CIFilter.vignette())
+                                }
+                                
+                                FilterButton (showingSlider: $viewModel.showingSliderIntensity, filterType: "Distortion",image: nil, isLabelOn: false) {
+                                    viewModel.setFilter(CIFilter.twirlDistortion())
+                                }
                             } label: {
                                 Label("More Filters", systemImage: "line.3.horizontal")
                             }
                         }
                     }
                 }
-            }
-            .confirmationDialog("More Filters", isPresented: $viewModel.showingConfirmationDialog) {
-                Button("Unsharp Mask") { viewModel.setFilter(CIFilter.unsharpMask()) }
-                Button("Vignette") { viewModel.setFilter(CIFilter.vignette()) }
-                Button("Cancel", role: .cancel) { }
             }
             .alert(viewModel.alertTitle, isPresented: $viewModel.showingAlert) {
                 Button("OK") {

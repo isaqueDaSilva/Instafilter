@@ -10,7 +10,9 @@ import SwiftUI
 struct FilterButton: View {
     @Binding var showingSlider: Bool
     let filterType: String
-    let image: String
+    let image: String?
+    var isLabelOn: Bool
+    
     var currentFilter: () -> Void
     
     var body: some View {
@@ -22,7 +24,11 @@ struct FilterButton: View {
                 currentFilter()
             }
         } label: {
-            Label(filterType, systemImage: image)
+            if isLabelOn {
+                Label(filterType, systemImage: image ?? "")
+            } else {
+                Text(filterType)
+            }
         }
     }
 }
