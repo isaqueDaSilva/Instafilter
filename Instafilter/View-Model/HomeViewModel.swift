@@ -14,6 +14,20 @@ extension HomeView {
     class HomeViewModel: ObservableObject {
         let context = CIContext()
         
+        let filterInButtonBar: [Filters] = [
+            Filters(name: "Crystallize", filterType: CIFilter.crystallize(), icone: "wand.and.stars.inverse"),
+            Filters(name: "Edges", filterType: CIFilter.edges(), icone: "timeline.selection"),
+            Filters(name: "Gausian Blur", filterType: CIFilter.gaussianBlur(), icone: "f.cursive"),
+            Filters(name: "Pixellate", filterType: CIFilter.pixellate(), icone: "eyedropper"),
+            Filters(name: "Sepia Tone", filterType: CIFilter.sepiaTone(), icone: "camera.filters")
+        ]
+        
+        let filtersInMenu: [Filters] = [
+            Filters(name: "Unsharp Mask", filterType: CIFilter.unsharpMask(), icone: nil),
+            Filters(name: "Vignette", filterType: CIFilter.vignette(), icone: nil),
+            Filters(name: "Distortion", filterType: CIFilter.twirlDistortion(), icone: nil)
+        ]
+        
         @Published var showingUserGalery: Bool = false
         @Published var image: Image?
         @Published var inputImage: UIImage?
@@ -25,7 +39,7 @@ extension HomeView {
         @Published var showingAlert = false
         @Published var alertTitle = ""
         @Published var alertMessage = ""
-        
+
         func setFilter(_ filter: CIFilter) {
             DispatchQueue.main.async {
                 self.currentFilter = filter
