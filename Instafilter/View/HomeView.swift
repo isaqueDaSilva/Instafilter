@@ -78,7 +78,7 @@ struct HomeView: View {
                     ToolbarItem(placement: .bottomBar) {
                         HStack(spacing: 20) {
                             ForEach(viewModel.filterInButtonBar) { filter in
-                                FilterButton(showingSlider: $viewModel.showingSliderIntensity, filterType: filter.name, image: filter.icone ?? "", isLabelOn: true) {
+                                FilterButton(showingSlider: $viewModel.showingSliderIntensity, filterType: filter.name, image: filter.icone, isLabelOn: true) {
                                     viewModel.setFilter(filter.filterType)
                                 }
                             }
