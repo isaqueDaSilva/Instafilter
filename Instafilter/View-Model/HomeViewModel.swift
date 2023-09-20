@@ -26,21 +26,21 @@ extension HomeView {
         
         let context = CIContext()
         
-        let filterInButtonBar: [Filters] = [
-            Filters(name: "Crystallize", filterType: CIFilter.crystallize(), icone: "wand.and.stars.inverse"),
-            Filters(name: "Edges", filterType: CIFilter.edges(), icone: "timeline.selection"),
-            Filters(name: "Gausian Blur", filterType: CIFilter.gaussianBlur(), icone: "f.cursive"),
-            Filters(name: "Pixellate", filterType: CIFilter.pixellate(), icone: "eyedropper"),
-            Filters(name: "Sepia Tone", filterType: CIFilter.sepiaTone(), icone: "camera.filters")
+        let filterInButtonBar: [Filter] = [
+            Filter(name: "Crystallize", filterType: CIFilter.crystallize(), icone: "wand.and.stars.inverse"),
+            Filter(name: "Edges", filterType: CIFilter.edges(), icone: "timeline.selection"),
+            Filter(name: "Gausian Blur", filterType: CIFilter.gaussianBlur(), icone: "f.cursive"),
+            Filter(name: "Pixellate", filterType: CIFilter.pixellate(), icone: "eyedropper"),
+            Filter(name: "Sepia Tone", filterType: CIFilter.sepiaTone(), icone: "camera.filters")
         ]
         
-        let filtersInMenu: [Filters] = [
-            Filters(name: "Unsharp Mask", filterType: CIFilter.unsharpMask(), icone: nil),
-            Filters(name: "Vignette", filterType: CIFilter.vignette(), icone: nil),
-            Filters(name: "Distortion", filterType: CIFilter.twirlDistortion(), icone: nil),
-            Filters(name: "Edge Work", filterType: CIFilter.edgeWork(), icone: nil),
-            Filters(name: "Bloom", filterType: CIFilter.bloom(), icone: nil),
-            Filters(name: "Motion Blur", filterType: CIFilter.motionBlur(), icone: nil)
+        let filtersInMenu: [Filter] = [
+            Filter(name: "Unsharp Mask", filterType: CIFilter.unsharpMask(), icone: nil),
+            Filter(name: "Vignette", filterType: CIFilter.vignette(), icone: nil),
+            Filter(name: "Distortion", filterType: CIFilter.twirlDistortion(), icone: nil),
+            Filter(name: "Edge Work", filterType: CIFilter.edgeWork(), icone: nil),
+            Filter(name: "Bloom", filterType: CIFilter.bloom(), icone: nil),
+            Filter(name: "Motion Blur", filterType: CIFilter.motionBlur(), icone: nil)
         ]
         
         func setFilter(_ filter: CIFilter) {

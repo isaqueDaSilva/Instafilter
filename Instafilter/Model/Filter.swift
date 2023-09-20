@@ -8,7 +8,7 @@
 import CoreImage
 import Foundation
 
-struct Filters: Identifiable {
+struct Filter: Identifiable {
     var id = UUID()
     let name: String
     let filterType: CIFilter
