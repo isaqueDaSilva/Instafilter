@@ -40,11 +40,11 @@ struct HomeView: View {
                             .scaledToFit()
                     }
                     
-                    if viewModel.showingSliderIntensity && viewModel.image != nil {
-                        Slider(value: $viewModel.filterIntensity)
-                            .onChange(of: viewModel.filterIntensity) { _ in
+                    if viewModel.showingSliderIntensity && viewModel.image != nil && viewModel.currentFilter != CIFilter.colorInvert() {
+                        Slider(value: $viewModel.filterIntensity, in: 0...viewModel.maxValue)
+                            .onChange(of: viewModel.filterIntensity, { _, _ in
                                 viewModel.applyFilter()
-                            }
+                            })
                             .padding(.top)
                     }
                 }
@@ -52,7 +52,9 @@ struct HomeView: View {
             }
             .navigationTitle("InstaFilter")
             .preferredColorScheme(.dark)
-            .onChange(of: viewModel.inputImage) { _ in viewModel.loadImage() }
+            .onChange(of: viewModel.inputImage, { _, _ in
+                viewModel.loadImage()
+            })
             .sheet(isPresented: $viewModel.showingUserGalery) {
                 ImagePicker(image: $viewModel.inputImage)
             }
@@ -82,6 +84,7 @@ struct HomeView: View {
                                     viewModel.setFilter(filter.filterType)
                                 }
                             }
+                            .pickerStyle(.segmented)
                             
                             Menu {
                                 ForEach(viewModel.filtersInMenu) { filter in

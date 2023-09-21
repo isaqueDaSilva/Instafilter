@@ -18,6 +18,7 @@ extension HomeView {
         @Published var imageSaved: UIImage?
         @Published var currentFilter: CIFilter = CIFilter.sepiaTone()
         @Published var filterIntensity: Double = 0.5
+        @Published var maxValue: Double = 1
         @Published var showingSliderIntensity: Bool = false
         @Published var showingConfirmationDialog = false
         @Published var showingAlert = false
@@ -27,11 +28,11 @@ extension HomeView {
         let context = CIContext()
         
         let filterInButtonBar: [Filter] = [
+            Filter(name: "Sepia Tone", filterType: CIFilter.sepiaTone(), icone: "camera.filters"),
             Filter(name: "Crystallize", filterType: CIFilter.crystallize(), icone: "wand.and.stars.inverse"),
             Filter(name: "Edges", filterType: CIFilter.edges(), icone: "timeline.selection"),
             Filter(name: "Gausian Blur", filterType: CIFilter.gaussianBlur(), icone: "f.cursive"),
-            Filter(name: "Pixellate", filterType: CIFilter.pixellate(), icone: "eyedropper"),
-            Filter(name: "Sepia Tone", filterType: CIFilter.sepiaTone(), icone: "camera.filters")
+            Filter(name: "Pixellate", filterType: CIFilter.pixellate(), icone: "eyedropper")
         ]
         
         let filtersInMenu: [Filter] = [
@@ -62,14 +63,17 @@ extension HomeView {
             
             if inputKeys.contains(kCIInputIntensityKey) {
                 self.currentFilter.setValue(filterIntensity, forKey: kCIInputIntensityKey)
-            }
-            
-            if inputKeys.contains(kCIInputRadiusKey) {
-                self.currentFilter.setValue(filterIntensity * 200, forKey: kCIInputRadiusKey)
+                self.maxValue = 5
             }
             
             if inputKeys.contains(kCIInputScaleKey) {
-                self.currentFilter.setValue(filterIntensity * 10, forKey: kCIInputScaleKey)
+                self.currentFilter.setValue(filterIntensity, forKey: kCIInputScaleKey)
+                self.maxValue = 10
+            }
+            
+            if inputKeys.contains(kCIInputRadiusKey) {
+                self.currentFilter.setValue(filterIntensity, forKey: kCIInputRadiusKey)
+                self.maxValue = 100
             }
             
             guard let outputImage = currentFilter.outputImage else { return }
